@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 3 — Coding for the Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+        max-width: 70em;
+        margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+    <script>
+        //new project
+        //ask the user for their 'grade' and tell them what letter they got
+
+        var gradeNumber = prompt("What grade did you get in your course?");
+        while (Number.isNaN(gradeNumber)){
+            gradeNumber = prompt("What grade did you get in your course?");
+        }
+
+        var gradeInt = parseInt(gradeNumber);
+
+        var gradeLetter;
+
+        if (gradeInt > 90){
+            gradeLetter = "A";
+        }
+        else if (gradeInt <= 89 && gradeInt >= 80){
+            gradeLetter = "B";
+        }
+        else if (gradeInt <= 79 && gradeInt >= 70){
+            gradeLetter = "C";
+        }
+        else if (gradeInt <= 69 && gradeInt >= 60){
+            gradeLetter = "D";
+        }
+        else if (gradeInt <= 59){
+            gradeLetter = "F";
+            alert("You are buns at that course man lock in");
+        }
+
+        console.log("Your grade is a " + gradeLetter);
+        
+    </script>
+</body>
+</html>

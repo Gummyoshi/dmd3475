@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 3 — Coding for the Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+        max-width: 70em;
+        margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Week 3: Control Flow</h1>
+
+  <p>
+    Open your browser’s Developer Tools and view the Console.
+  </p>
+
+  <p>
+    If everything is set up correctly, you should see a message in the Console.
+  </p>
+
+    <script>
+      console.log("welcome to week 3");
+
+      var username = "Joel";
+
+      console.log ("My name is " + username);
+
+      var age = 37;
+
+      age = prompt("What is your age?");
+
+      console.log("My age is " + age);
+
+      console.log(typeof parseInt(age))
+
+      if (typeof parseInt(age) != Number){
+        alert("Thats not a number!");
+      }
+
+      //console.log(typeof age);
+
+      /*while (typeof parseInt(age) != Number){
+        var age = prompt("Enter a number of years");
+      }*/
+
+      var years = prompt("Enter a number of years");
+      
+
+      var newAge = parseInt(age) + parseInt(years);
+
+      console.log("In " + years + " years you will be " + newAge);
+      //console.log(typeof newAge);
+
+      var drinkingAge = 21;
+      //console.log(typeof drinkingAge);
+
+
+      var canDrink = newAge >= drinkingAge;
+      //console.log(canDrink);
+      //console.log(typeof canDrink);
+
+      if (canDrink)
+      {
+        console.log("You can drink!");
+      }
+      else{
+        console.log("You cannot drink");
+      }
+
+    </script>
+</body>
+</html>

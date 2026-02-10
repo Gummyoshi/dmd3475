@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Week 04</title>
+</head>
+
+<body>
+        <h1>Week 04</h1>
+        <h2>Exercise 1 - Revised Grading Simulator</h2>
+
+        <script>
+            // prompt user for a number grade, then tell them their letter grade
+            var numberGrade = prompt("What is your grade");
+            numberGrade = parseInt(numberGrade);
+
+            console.log(isNane(numberGrade));
+
+            if (isNane(numberGrade)){
+                numberGrade = prompt("That wasn't a number. Enter your number grade again")
+            } else{
+                if (numberGrade >= 90){
+                    letterGrade = "A";
+                }
+                else if (numberGrade < 90 && numberGrade >= 80){
+                    letterGrade = "B";
+                }
+                else if (numberGrade < 80 && numberGrade >= 70){
+                    letterGrade = "C";
+                }
+                else if (numberGrade < 70 && numberGrade >= 60){
+                    letterGrade = "D";
+                }
+                else{
+                    letterGrade = "F";
+                }
+                
+            }
+
+            //var sum = parseInt(numberGrade + 1);
+            //console.log("The type of input is: " + typeof numberGrade);
+            //console.log("Numbergrade plus one: " + sum);
+
+            /*
+            //my solution that i just wrote 4 fun
+            var input = prompt("What was your grade?")
+            while (Number.isNaN(parseInt(input))){
+                input = prompt("What was your grade?")
+            }
+
+            var numberGrade = parseInt(input);
+            var letterGrade = "F";
+
+            if (numberGrade >= 90){
+                letterGrade = "A";
+            }
+            else if (numberGrade < 90 && numberGrade >= 80){
+                letterGrade = "B";
+            }
+            else if (numberGrade < 80 && numberGrade >= 70){
+                letterGrade = "C";
+            }
+            else if (numberGrade < 70 && numberGrade >= 60){
+                letterGrade = "D";
+            }
+
+            console.log("Your leter grade is " + letterGrade);
+            */
+        </script>
+</body>
+</html>

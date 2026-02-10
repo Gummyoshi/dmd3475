@@ -39,7 +39,7 @@
 
       console.log(typeof parseInt(age))
 
-      if (typeof parseInt(age) != Number){
+      if (Number.isNaN(age)){
         alert("Thats not a number!");
       }
 
@@ -50,6 +50,10 @@
       }*/
 
       var years = prompt("Enter a number of years");
+
+      if (Number.isNaN(years)){
+        alert("Thats not a number!");
+      }
       
 
       var newAge = parseInt(age) + parseInt(years);

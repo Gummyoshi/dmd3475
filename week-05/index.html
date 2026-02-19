@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 05 - Functions and the DOM</title>
+
+    <style>
+        .display-none{
+            background-color: aqua;
+            transition: 5s;
+        }
+
+        .red-text{
+            color: red;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Week 05!</h1>
+    <h2>This is my h2</h2>
+
+    <div id="div1">
+        <p>this is my first paragraph</p>
+    </div>
+
+    <div id="div2">
+        <h3>This is Div2</h3>
+        <p>this is my second paragraph</p>
+    </div>
+
+    <script>
+        /*var num = prompt("What was your number grade?");
+        num = parseInt(num);
+
+        while (isNaN(num)){
+            num = prompt("That's not a number... What was your number grade?");
+            num = parseInt(num);
+        }
+
+        var letterGrade = "A";
+        if (num >= 90){
+            letterGrade = "A";
+        }
+        else if (num >= 80){
+            letterGrade = "B";
+        }
+        else if (num >= 70){
+            letterGrade = "C";
+        }
+        else if (num >= 60){
+            letterGrade = "D";
+        }
+        else{
+            letterGrade = "F";
+        }
+
+        alert("Your letter grade is: " + letterGrade);*/
+
+        function addTen(number){
+            console.log(numer+10);
+        }
+
+        function calculateLetterGrade(numberGrade){
+
+        }
+
+        var header = document.querySelector("h1");
+        console.log(typeof header);
+        header.innerHTML = "Hello! This is my new content :]";
+
+        header.classList.add('display-none');
+
+        var div2 = document.querySelector("#div2 p");
+
+        div2.classList.add('display-none');
+        div2.innerHTML = "Something else woo hoo!";
+
+        var div2H3 = document.querySelector("#div2 h3");
+
+        div2H3.classList.add("red-text");
+        
+        
+
+    </script>
+</body>
+</html>

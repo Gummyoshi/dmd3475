@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Stuff</title>
+    <style>
+        .redBG{
+            background-color: red;
+        }
+        .happy{
+            background-color: yellow;
+        }
+
+        .happy h1{
+            text-transform: lowercase;
+            color: palevioletred;
+        }
+
+        .happy h2{
+            color: pink;
+        }
+
+        .happy button {
+            border-radius: 10px;
+            background-color: palevioletred;
+            color: blue;
+            text-transform: lowercase;
+        }
+
+        .angry{
+            background-color: red;
+        }
+
+        .angry h1{
+            text-transform: uppercase;
+            color: rgb(112, 30, 58);
+        }
+
+        .angry h2{
+            color: rgb(208, 0, 35);
+        }
+
+        .angry button {
+            border-radius: 10px;
+            background-color: rgb(112, 30, 58);
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .sad{
+            background-color: rgb(0, 50, 186);
+        }
+
+        .sad h1{
+            text-transform: lowercase;
+            color: rgb(22, 19, 66);
+        }
+
+        .sad h2{
+            color: rgb(22, 19, 66);
+        }
+
+        .sad button {
+            border-radius: 10px;
+            background-color: rgb(62, 62, 67);
+            color: black;
+            text-transform: lowercase;
+        }
+    </style>
+</head>
+<body>
+    <h1 id = "pageH1">DOM Stuff</h1>
+    <h2>Make the page red.</h2>
+
+    <button id="makeRed">Click Me</button>
+    <h2>Change the h1 text</h2>
+
+
+    <input type = "text" id="newH1" placeholder="enter a new h1">
+    <button id="changeH1">Change the H1</button>
+
+    <h2 id = "moodCorrection">How are you today?</h2>
+    <label for="userMood">
+        Enter your mood.
+    </label>
+
+    <input type = "text" id = "userMood" placeholder="happy, sad, angry">
+    
+    <button id = "changeMood">Process Mood</button>
+
+    <script>
+        var button = document.querySelector("#makeRed");
+
+        button.addEventListener("click", function() {
+            var body = document.querySelector("body");
+                body.classList.toggle("redBG");
+            button.innerHTML = "change it back";
+        });
+
+        var newH1Input = document.querySelector("#newH1");
+        var newH1Button = document.querySelector("#changeH1");
+        var pageH1 = document.querySelector("#pageH1");
+        
+        newH1Button.addEventListener("click", function() {
+            var inputValue = newH1Input.value;
+
+            pageH1.innerHTML = inputValue;
+        })
+
+        var moodButton = document.querySelector("#changeMood");
+        var moodInput = document.querySelector("#userMood");
+        var moodCorrect = document.querySelector("#moodCorrection")
+        var bodyMaterial = document.querySelector("body");
+
+        moodButton.addEventListener("click", function(){
+            var inputValue = moodInput.value;
+
+            if (inputValue == "happy"){
+                bodyMaterial.className = "";
+                bodyMaterial.classList.add("happy");
+            }
+            else if (inputValue == "sad"){
+                bodyMaterial.className = "";
+                bodyMaterial.classList.add("sad");
+            }
+            else if (inputValue == "angry"){
+                bodyMaterial.className = "";
+                bodyMaterial.classList.add("angry");
+            }
+            else{
+                moodCorrect.innerHTML = "That is not a valid mood! Please enter how you're feeling again."
+                bodyMaterial.className = "";
+            }
+        })
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions Practice</title>
+</head>
+<body>
+    <h1>Functions Practice</h1>
+
+    <div>
+        <input type="number" id="num1" placeholder="enter num1">
+        <input type="number" id="num2" placeholder="enter num2">
+        <button id="calculate">Get the sum</button>
+    </div>
+
+    <div id="grade-calc">
+        <label for="numberGrade">Enter your Number</label>
+        <input type="number" id="numberGrade" placeholder="enter your number grade">
+        <button id="calcGrade">Calculate Grade</button>
+    </div>
+
+    <div id = "console">
+        <h2>Our Console</h2>
+        <p>Test paragraph #1</p>
+        <p>Test paragraph #2</p>
+    </div>
+
+
+    
+    <script>
+        var myConsole = document.querySelector("#console");
+
+
+        function logConsole(message){
+            myConsole.innerHTML += "<p>" + message + "</p>";
+        }
+
+        logConsole("apple");
+
+        function add(num1, num2){
+            var sum = num1 + num2;
+            return sum;
+        }
+
+        var calcButton = document.querySelector("#calculate")
+
+        calcButton.addEventListener("click", function(){
+            var num1 = parseInt(document.querySelector("#num1").value);
+            var num2 = parseInt(document.querySelector("#num2").value);
+            
+            logConsole(add(num1, num2));
+        })
+
+        var checkGradeButton = document.querySelector("#calcGrade");
+
+        function calcLetterGrade(){
+            var numberInput = parseInt(document.querySelector("#numberGrade").value);
+            if (isNaN(numberInput)){
+                logConsole("You somehow entered not a number, please try again")
+                return;
+            }
+            var letterGrade = "A";
+
+            if (numberInput < 93 && numberInput >= 90){
+                letterGrade = "A-"
+            }
+            else if (numberInput < 90 && numberInput >= 87){
+                letterGrade = "B+"
+            }
+            else if (numberInput < 87 && numberInput >= 83){
+                letterGrade = "B"
+            }
+            else if (numberInput < 83 && numberInput >= 80){
+                letterGrade = "B-"
+            }
+            else if (numberInput < 80 && numberInput >= 77){
+                letterGrade = "C+"
+            }
+            else if (numberInput < 77 && numberInput >= 73){
+                letterGrade = "C"
+            }
+            else if (numberInput < 73 && numberInput >= 70){
+                letterGrade = "C-"
+            }
+            else if (numberInput < 70 && numberInput >= 67){
+                letterGrade = "D+"
+            }
+            else if (numberInput < 67 && numberInput >= 63){
+                letterGrade = "D"
+            }
+            else if (numberInput < 63 && numberInput >= 60){
+                letterGrade = "D-"
+            }
+            else if (numberInput < 60){
+                letterGrade = "F"
+            }
+
+            logConsole("Your letter grade is " + letterGrade);
+        }
+
+        checkGradeButton.addEventListener("click", function(){
+            calcLetterGrade();
+        })
+        
+
+    </script>
+</body>
+</html>

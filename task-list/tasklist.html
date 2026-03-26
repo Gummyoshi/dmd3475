@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <h1>Our Fancy Task List</h1>
+
+    <input type="text" id="newTask" placeholder="enter a new task">
+    <button id="addTask">Add Task</button>
+
+    <ul id="taskList">
+
+    </ul>
+
+    <script>
+        var taskList = [];
+        var taskButton = document.querySelector("#addTask");
+        var taskInput = document.querySelector("#newTask");
+
+        function renderList(){
+            var listElement = document.querySelector("#taskList");
+            var htmlText = "";
+            // read the task list array and render it to the page
+
+            for (var i = 0; i < taskList.length; i++){
+                htmlText += "<li>" + taskList[i] + "</li>";
+            }
+            
+            listElement.innerHTML = "";
+            listElement.innerHTML = htmlText;
+        }
+
+        function addTask(task){
+            if (task != ""){
+                taskList.push(task);
+            }
+        }
+
+        taskButton.addEventListener("click", function(){
+            var taskText = taskInput.value;
+
+            addTask(taskText);
+            renderList();
+        })
+
+    </script>
+</body>
+</html>

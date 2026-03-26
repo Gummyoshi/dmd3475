@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    <input type="text" id="newTask" placeholder="New task">
+    <button id="addTask">Add Task</button>
+    <ul id="taskList">
+        <li><input type="checkbox" id="myCheck">Hello</input></li>
+        
+    </ul>
+
+    <script>
+        var button = document.querySelector("#addTask");
+        var listHolder = document.querySelector("#taskList");
+        var inputBox = document.querySelector("#newTask");
+
+        var storageList = [];
+
+        button.addEventListener("click", function(){
+            taskInput(inputBox.value);
+        });
+
+        function taskInput(textInside){
+            var html = "<li><input type=\"checkbox\" id=\"myCheck\">" + textInside + "</input></li>";
+            listHolder.innerHTML += html;
+            storageList.push(textInside);
+        }
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping List Mini App</title>
+</head>
+<body>
+  <h1>Shopping List</h1>
+
+  <input type="text" id="itemInput" placeholder="Enter an item" />
+  <button id="addButton">Add Item</button>
+  <button id="deleteAllButton">Delete All</button>
+
+  <p id="itemCount">Total Items: 0</p>
+
+  <ul id="itemList"></ul>
+
+  <script>
+    // Starting array with at least 3 items
+    let items = ["Milk", "Bread", "Eggs"];
+
+    // Grab elements
+    const itemInput = document.querySelector("#itemInput");
+    const addButton = document.querySelector("#addButton");
+    const deleteAllButton = document.querySelector("#deleteAllButton");
+    const itemList = document.querySelector("#itemList");
+    const itemCount = document.querySelector("#itemCount");
+
+    // Render function
+    function renderList() {
+        let html = "";
+
+        for (let i = 0; i < items.length; i++) {
+            html += `
+            <li>
+                ${i + 1}. ${items[i]}
+                <button onclick="deleteItem(${i})">Delete</button>
+            </li>
+            `;
+        }
+
+        itemList.innerHTML = html;
+
+        // Update count
+        itemCount.textContent = "Total Items: " + items.length;
+    }
+
+
+    function deleteItem(index) {
+        items.splice(index, 1);
+        renderList();
+    }
+
+    // Add function
+    function addItem() {
+      const newItem = itemInput.value.trim();
+
+      // Prevent empty items
+      if (newItem === "") {
+        itemInput.focus();
+        return;
+      }
+
+      // Use push() to add data
+      items.push(newItem);
+
+      // Clear the input
+      itemInput.value = "";
+
+      // Re-focus on the input
+      itemInput.focus();
+
+      // Re-render when data changes
+      renderList();
+    }
+
+    // Button event listener
+    addButton.addEventListener("click", function(){
+        addItem();
+    });
+
+    // Optional: allow Enter key to add too
+    itemInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        addItem();
+      }
+    });
+
+    // Delete all feature
+    deleteAllButton.addEventListener("click", function () {
+      items = [];
+      renderList();
+      itemInput.focus();
+    });
+
+    // Initial render
+    renderList();
+  </script>
+</body>
+</html>

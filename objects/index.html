@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Directory Cards</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #6b7280;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .form-card h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .form-row input {
+      flex: 1 1 220px;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 1rem;
+    }
+
+    .form-row button {
+      border: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .form-row button:hover {
+      background: #1d4ed8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .person-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s;
+    }
+
+    .person-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .index {
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+
+    .person-name {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .person-role {
+      color: #4b5563;
+      margin-bottom: 18px;
+      font-size: 1rem;
+    }
+
+    .edit-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .edit-area input {
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .save-btn,
+    .delete-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .save-btn {
+      background: #10b981;
+      color: white;
+    }
+
+    .save-btn:hover {
+      background: #059669;
+    }
+
+    .delete-btn {
+      background: #ef4444;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #6b7280;
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Learning About Objects</h1>
+    <p class="subtitle">Directory displayed as editable cards</p>
+
+    <div class="form-card">
+      <h2>Add New Person</h2>
+      <div class="form-row">
+        <input type="text" id="newName" placeholder="Enter name" />
+        <input type="text" id="newRole" placeholder="Enter role" />
+        <button onclick="addPerson()">Add Person</button>
+      </div>
+    </div>
+
+    <div id="directoryContainer"></div>
+  </div>
+
+  <script>
+    var directory = [
+      { name: "Joel", role: "Faculty" },
+      { name: "Sarah", role: "Student" },
+      { name: "Alyssa", role: "Student" }
+    ];
+
+    function renderDirectory() {
+      var container = document.getElementById("directoryContainer");
+
+      if (directory.length === 0) {
+        container.innerHTML = '<div class="empty-message">No people in the directory yet.</div>';
+        return;
+      }
+
+      var html = '<div class="cards">';
+
+      directory.forEach(function(person, index) {
+        html += `
+          <div class="person-card">
+            <div class="card-top">
+              <span class="badge">${person.role}</span>
+              <span class="index">#${index}</span>
+            </div>
+
+            <div class="person-name">${person.name}</div>
+            <div class="person-role">${person.role}</div>
+
+            <div class="edit-area">
+              <input type="text" id="name-${index}" placeholder="Edit name" value="${person.name}">
+              <input type="text" id="role-${index}" placeholder="Edit role" value="${person.role}">
+            </div>
+
+            <div class="button-row">
+              <button class="save-btn" onclick="updatePerson(${index})">Save Changes</button>
+              <button class="delete-btn" onclick="deletePerson(${index})">Delete</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += "</div>";
+      container.innerHTML = html;
+    }
+
+    function addPerson() {
+      var newName = document.getElementById("newName").value.trim();
+      var newRole = document.getElementById("newRole").value.trim();
+
+      if (newName === "" || newRole === "") {
+        alert("Please enter both a name and a role.");
+        return;
+      }
+
+      directory.push({
+        name: newName,
+        role: newRole
+      });
+
+      document.getElementById("newName").value = "";
+      document.getElementById("newRole").value = "";
+
+      renderDirectory();
+    }
+
+    function updatePerson(index) {
+      var updatedName = document.getElementById("name-" + index).value.trim();
+      var updatedRole = document.getElementById("role-" + index).value.trim();
+
+      if (updatedName === "" || updatedRole === "") {
+        alert("Name and role cannot be empty.");
+        return;
+      }
+
+      directory[index].name = updatedName;
+      directory[index].role = updatedRole;
+
+      renderDirectory();
+    }
+
+    function deletePerson(index) {
+      directory.splice(index, 1);
+      renderDirectory();
+    }
+
+    renderDirectory();
+  </script>
+</body>
+</html>

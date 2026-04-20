@@ -3,7 +3,7 @@ const ENCODED_TAG = encodeURIComponent(CLAN_TAG);
 
 // Change this if your backend lives on another domain.
 // Example: const API_BASE = "https://your-vercel-backend.vercel.app";
-const API_BASE = "";
+const API_BASE = "http://3.21.103.64:3000";
 
 let clanData = null;
 let membersCache = [];

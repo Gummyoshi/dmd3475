@@ -4,23 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gummy Bear Clan Dashboard</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
   <div class="bg-grid"></div>
 
   <header class="hero">
     <div class="hero-content">
+
       <div class="hero-left">
         <p class="eyebrow">Clash of Clans Clan Dashboard</p>
         <h1>Gummy Bear</h1>
+
         <p class="hero-subtitle">
-          Live clan stats, member rankings, war info, and raid weekend results for
+          Live clan stats, ranked members, war info, and raid weekend results for
           <span id="clanTagText">#2QVRV2VR</span>
         </p>
 
@@ -39,20 +44,26 @@
         <div class="clan-badge-wrap">
           <img id="clanBadge" src="" alt="Clan badge" />
         </div>
+
         <div class="hero-clan-meta">
           <h2 id="clanName">Loading...</h2>
           <p id="clanLocation">Location loading...</p>
+
           <div class="hero-pills">
             <span class="pill" id="typePill">Clan</span>
             <span class="pill" id="warFrequencyPill">War: --</span>
           </div>
         </div>
       </div>
+
     </div>
   </header>
 
   <main class="container">
+
+    <!-- STATS -->
     <section class="stats-grid">
+
       <article class="stat-card glass-card">
         <p class="stat-label">Clan Level</p>
         <h3 id="statClanLevel">--</h3>
@@ -82,9 +93,13 @@
         <p class="stat-label">Required Builder Trophies</p>
         <h3 id="statRequiredBuilderTrophies">--</h3>
       </article>
+
     </section>
 
+    <!-- WAR + RAID -->
     <section class="two-col">
+
+      <!-- WAR -->
       <article class="panel glass-card">
         <div class="panel-header">
           <h2>Current War</h2>
@@ -92,6 +107,7 @@
         </div>
 
         <div class="war-grid">
+
           <div class="war-team team-card">
             <p class="team-label">Gummy Bear</p>
             <h3 id="ourWarStars">-- ⭐</h3>
@@ -107,6 +123,7 @@
             <p id="enemyWarDestruction">--% destruction</p>
             <p id="enemyAttacksUsed">Attacks used: --</p>
           </div>
+
         </div>
 
         <div class="war-footer">
@@ -115,6 +132,7 @@
         </div>
       </article>
 
+      <!-- RAID -->
       <article class="panel glass-card">
         <div class="panel-header">
           <h2>Raid Weekend</h2>
@@ -140,15 +158,20 @@
           </div>
         </div>
 
-        <div class="raid-note" id="raidDateRange">Loading latest raid weekend...</div>
+        <div class="raid-note" id="raidDateRange">
+          Loading latest raid weekend...
+        </div>
       </article>
+
     </section>
 
+    <!-- MEMBERS -->
     <section class="panel glass-card members-panel" id="membersSection">
+
       <div class="panel-header members-header">
         <div>
           <h2>Members</h2>
-          <p class="muted">Sorted by home village trophies</p>
+          <p class="muted">Sorted by war stars</p>
         </div>
 
         <div class="search-wrap">
@@ -156,34 +179,40 @@
             type="text"
             id="memberSearch"
             placeholder="Search member name..."
-            aria-label="Search members"
           />
         </div>
       </div>
 
       <div class="table-wrap">
         <table>
+
           <thead>
             <tr>
               <th>#</th>
               <th>Player</th>
-              <th>Role</th>
-              <th>Trophies</th>
-              <th>Builder</th>
-              <th>Donations</th>
+              <th>Town Hall</th>
+              <th>War Stars</th>
+              <th>Attack Wins</th>
               <th>League</th>
             </tr>
           </thead>
+
           <tbody id="membersTableBody">
             <tr>
-              <td colspan="7" class="loading-cell">Loading members...</td>
+              <td colspan="6" class="loading-cell">
+                Loading members...
+              </td>
             </tr>
           </tbody>
+
         </table>
       </div>
+
     </section>
+
   </main>
 
   <script src="script.js"></script>
+
 </body>
 </html>

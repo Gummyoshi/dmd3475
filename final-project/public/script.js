@@ -1,8 +1,5 @@
 const CLAN_TAG = "#2QVRV2VR";
 const ENCODED_TAG = encodeURIComponent(CLAN_TAG);
-
-// Change this if your backend lives on another domain.
-// Example: const API_BASE = "https://your-vercel-backend.vercel.app";
 const API_BASE = "https://api.connorlafferty.com";
 
 let clanData = null;
@@ -55,7 +52,6 @@ function formatNumber(value) {
 function formatDateTime(isoLike) {
   if (!isoLike) return "--";
 
-  // Clash timestamps often look like 20260419T123456.000Z
   const normalized = isoLike.replace(
     /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})\.?(\d+)?Z$/,
     "$1-$2-$3T$4:$5:$6Z"
@@ -96,6 +92,11 @@ async function fetchJSON(path) {
   return response.json();
 }
 
+async function fetchPlayer(tag) {
+  const encodedTag = encodeURIComponent(tag);
+  return fetchJSON(`/api/player?tag=${encodedTag}`);
+}
+
 function renderClan(data) {
   clanData = data;
 
@@ -116,9 +117,49 @@ function renderClan(data) {
   statWarWins.textContent = formatNumber(data.warWins);
   statRequiredTrophies.textContent = formatNumber(data.requiredTrophies);
   statRequiredBuilderTrophies.textContent = formatNumber(data.requiredBuilderBaseTrophies);
+}
 
-  membersCache = [...(data.memberList || [])].sort((a, b) => (b.trophies || 0) - (a.trophies || 0));
+async function loadDetailedMembers(memberList) {
+  setStatus("Loading full player leaderboard...");
+
+  const detailedMembers = await Promise.all(
+    memberList.map(async (member) => {
+      try {
+        const player = await fetchPlayer(member.tag);
+
+        return {
+          ...member,
+          townHallLevel: player.townHallLevel ?? null,
+          warStars: player.warStars ?? 0,
+          attackWins: player.attackWins ?? 0,
+          leagueName: player.league?.name || "Unranked",
+          leagueIcon: player.league?.iconUrls?.tiny || player.league?.iconUrls?.small || ""
+        };
+      } catch (error) {
+        console.error(`Failed to load player ${member.tag}`, error);
+
+        return {
+          ...member,
+          townHallLevel: null,
+          warStars: 0,
+          attackWins: 0,
+          leagueName: member.league?.name || "Unranked",
+          leagueIcon: member.league?.iconUrls?.tiny || member.league?.iconUrls?.small || ""
+        };
+      }
+    })
+  );
+
+  detailedMembers.sort((a, b) => {
+    if ((b.warStars || 0) !== (a.warStars || 0)) {
+      return (b.warStars || 0) - (a.warStars || 0);
+    }
+    return (b.attackWins || 0) - (a.attackWins || 0);
+  });
+
+  membersCache = detailedMembers;
   renderMembers(membersCache);
+  setStatus(`Loaded data for ${clanData?.name || CLAN_TAG}`);
 }
 
 function renderWar(data) {
@@ -177,16 +218,13 @@ function renderMembers(list) {
   if (!list.length) {
     membersTableBody.innerHTML = `
       <tr>
-        <td colspan="7" class="loading-cell">No members found.</td>
+        <td colspan="6" class="loading-cell">No members found.</td>
       </tr>
     `;
     return;
   }
 
   membersTableBody.innerHTML = list.map((member, index) => {
-    const leagueIcon = member.league?.iconUrls?.tiny || member.league?.iconUrls?.small || "";
-    const leagueName = member.league?.name || "Unranked";
-
     return `
       <tr>
         <td>${index + 1}</td>
@@ -199,13 +237,12 @@ function renderMembers(list) {
             </div>
           </div>
         </td>
-        <td><span class="role-chip">${roleLabel(member.role)}</span></td>
-        <td>${formatNumber(member.trophies)}</td>
-        <td>${formatNumber(member.builderBaseTrophies)}</td>
-        <td>${formatNumber(member.donations)}</td>
+        <td>${member.townHallLevel ? `TH ${member.townHallLevel}` : "--"}</td>
+        <td>${formatNumber(member.warStars)}</td>
+        <td>${formatNumber(member.attackWins)}</td>
         <td>
-          ${leagueIcon ? `<img src="${leagueIcon}" alt="${leagueName}" style="width:22px;height:22px;vertical-align:middle;margin-right:8px;">` : ""}
-          ${leagueName}
+          ${member.leagueIcon ? `<img src="${member.leagueIcon}" alt="${member.leagueName}" style="width:22px;height:22px;vertical-align:middle;margin-right:8px;">` : ""}
+          ${member.leagueName}
         </td>
       </tr>
     `;
@@ -218,7 +255,7 @@ function filterMembers() {
   const filtered = membersCache.filter(member =>
     (member.name || "").toLowerCase().includes(term) ||
     (member.tag || "").toLowerCase().includes(term) ||
-    roleLabel(member.role).toLowerCase().includes(term)
+    (member.leagueName || "").toLowerCase().includes(term)
   );
 
   renderMembers(filtered);
@@ -239,17 +276,16 @@ async function loadAllData() {
     renderClan(clan);
     renderWar(war);
     renderRaid(raid);
-
-    setStatus(`Loaded data for ${clan.name || CLAN_TAG}`);
+    await loadDetailedMembers(clan.memberList || []);
   } catch (error) {
     console.error(error);
     setStatus("Could not load live data. Check your backend/proxy.", true);
 
     membersTableBody.innerHTML = `
       <tr>
-        <td colspan="7" class="loading-cell">
+        <td colspan="6" class="loading-cell">
           Error loading data. Make sure your backend routes are working:
-          /api/clan, /api/currentwar, /api/capitalraid
+          /api/clan, /api/currentwar, /api/capitalraid, /api/player
         </td>
       </tr>
     `;
